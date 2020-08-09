@@ -1,10 +1,13 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 let app = express();
 
 let personRoute = require('./routes/person');
+let customerRoute = require('./routes/customer');
 
+app.use(bodyParser.json());
 app.use((req, res, next) => {
     console.log(new Date().toString() + ' => ' + req.originalUrl);
 
@@ -13,6 +16,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(personRoute);
+app.use(customerRoute);
 app.use(express.static('public'));
 
 // Handler for 404 - Resource Not Found
